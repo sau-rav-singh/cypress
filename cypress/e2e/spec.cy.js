@@ -2,7 +2,7 @@
 /// <reference types="cypress-iframe" />
 import 'cypress-iframe';
 
-describe('My First Test', () =>
+describe('Hello Cypress', () =>
 {
 
   it("Sabji Purchase", () =>

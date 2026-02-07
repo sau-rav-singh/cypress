@@ -1,7 +1,7 @@
 import HomePage from '../support/pageObjects/HomePage';
 import ProductPage from '../support/pageObjects/ProductPage';
 
-describe("E2E Test", () =>
+describe("Framework Test", () =>
 {
     let testData;
     let homepage, productPage, cartPage, confirmationPage;
