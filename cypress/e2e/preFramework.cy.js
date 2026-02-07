@@ -9,7 +9,7 @@ describe("E2E Test", () =>
         cy.contains("Shop Name").should("be.visible");
     });
 
-    it.only("Second Test", () =>
+    it("Second Test", () =>
     {
         const productName = "Nokia Edge";
         cy.visit("https://rahulshettyacademy.com/angularpractice/shop");
