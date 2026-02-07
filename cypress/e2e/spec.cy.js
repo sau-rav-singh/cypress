@@ -7,7 +7,7 @@ describe('Automation Practice Suite', () =>
 
   it("E-Commerce Product Selection and Cart Flow", () =>
   {
-    cy.visit("https://rahulshettyacademy.com/seleniumPractise/#/");
+    cy.visit("/seleniumPractise/#/");
     cy.get('.search-keyword').type('ca');
     // Wait for products to appear and verify count
     cy.get('.products').find('.product:visible').should('have.length', 4);
@@ -38,7 +38,7 @@ describe('Automation Practice Suite', () =>
 
   it("Form Inputs: Checkboxes, Dropdowns, and Autocomplete", () =>
   {
-    cy.visit("https://rahulshettyacademy.com/AutomationPractice/");
+    cy.visit("/AutomationPractice/");
 
     // Checkboxes
     cy.get('#checkBoxOption1').check().should('be.checked').and('have.value', 'option1');
@@ -62,7 +62,7 @@ describe('Automation Practice Suite', () =>
 
   it("Element Visibility and Radio Button Interaction", () =>
   {
-    cy.visit("https://rahulshettyacademy.com/AutomationPractice/");
+    cy.visit("/AutomationPractice/");
 
     // Visibility
     cy.get('#displayed-text').should('be.visible');
@@ -75,7 +75,7 @@ describe('Automation Practice Suite', () =>
 
   it("Handling Alerts and New Tabs (Remove Attribute Strategy)", () =>
   {
-    cy.visit("https://rahulshettyacademy.com/AutomationPractice/");
+    cy.visit("/AutomationPractice/");
 
     // Alert Handling
     cy.get('#alertbtn').click();
@@ -97,7 +97,7 @@ describe('Automation Practice Suite', () =>
 
   it("Web Table Dynamic Value Validation", () =>
   {
-    cy.visit("https://rahulshettyacademy.com/AutomationPractice/");
+    cy.visit("/AutomationPractice/");
 
     cy.get('tr td:nth-child(2)').each(($el, index) =>
     {
@@ -115,7 +115,7 @@ describe('Automation Practice Suite', () =>
 
   it("Handling New Tabs (Direct URL Visit Strategy)", () =>
   {
-    cy.visit("https://rahulshettyacademy.com/AutomationPractice/");
+    cy.visit("/AutomationPractice/");
 
     cy.get('#opentab').then((el) =>
     {
@@ -130,7 +130,7 @@ describe('Automation Practice Suite', () =>
 
   it('IFrame Interaction', () =>
   {
-    cy.visit("https://rahulshettyacademy.com/AutomationPractice/");
+    cy.visit("/AutomationPractice/");
 
     cy.get("#courses-iframe").then($iframe =>
     {
@@ -151,7 +151,7 @@ describe('Automation Practice Suite', () =>
     const year = "2027";
     const expectedList = [monthNumber, date, year];
 
-    cy.visit("https://rahulshettyacademy.com/seleniumPractise/#/offers");
+    cy.visit("/seleniumPractise/#/offers");
 
     // Wait for calendar input to be visible instead of hard wait
     cy.get(".react-date-picker__inputGroup").should('be.visible').click();

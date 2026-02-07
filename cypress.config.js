@@ -2,8 +2,11 @@ import { defineConfig } from "cypress";
 
 export default defineConfig({
   reporter: 'cypress-mochawesome-reporter',
+  env: {
+  },
   allowCypressEnv: false,
   e2e: {
+    baseUrl: "https://rahulshettyacademy.com",
     setupNodeEvents(on, config)
     {
       require('cypress-mochawesome-reporter/plugin')(on);

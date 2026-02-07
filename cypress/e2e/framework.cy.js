@@ -18,7 +18,7 @@ describe("Framework Test", () =>
 
     it("Login and Dashboard Verification", () =>
     {
-        homepage.goTo("https://rahulshettyacademy.com/loginpagePractise/")
+        homepage.goTo("/loginpagePractise/")
         homepage.login(testData.username, testData.passsword);
         productPage.getShopName().should("be.visible");
     });
@@ -27,7 +27,7 @@ describe("Framework Test", () =>
     {
         const productName = testData.productName;
         Cypress.config('defaultCommandTimeout', 10000)
-        cy.visit("https://rahulshettyacademy.com/angularpractice/shop");
+        cy.visit("/angularpractice/shop");
 
         productPage.getShopName().should("be.visible");
         productPage.getCards().should('have.length', 4);

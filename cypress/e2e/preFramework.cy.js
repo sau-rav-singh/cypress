@@ -2,7 +2,7 @@ describe("Pre-Framework Raw Test Suite", () =>
 {
     it("Login and Dashboard Verification", () =>
     {
-        cy.visit("https://rahulshettyacademy.com/loginpagePractise/");
+        cy.visit("/loginpagePractise/");
         cy.get("#username").type("rahulshettyacademy");
         cy.get("#password").type("Learning@830$3mK2");
         cy.contains("Sign In").click();
@@ -14,7 +14,7 @@ describe("Pre-Framework Raw Test Suite", () =>
         const productName = "Nokia Edge";
         Cypress.config('defaultCommandTimeout', 10000);
 
-        cy.visit("https://rahulshettyacademy.com/angularpractice/shop");
+        cy.visit("/angularpractice/shop");
 
         // Verify Shop Page
         cy.contains("Shop Name").should("be.visible");
