@@ -18,27 +18,34 @@ describe("E2E Test", () =>
 
     it("First Test", () =>
     {
-        homepage.goto("https://rahulshettyacademy.com/loginpagePractise/")
+        homepage.goTo("https://rahulshettyacademy.com/loginpagePractise/")
         homepage.login(testData.username, testData.passsword);
-        cy.contains("Shop Name").should("be.visible");
+        productPage.getShopName().should("be.visible");
     });
 
-    it.only("Second Test", () =>
+    it("Second Test", () =>
     {
         const productName = testData.productName;
         Cypress.config('defaultCommandTimeout', 10000)
         cy.visit("https://rahulshettyacademy.com/angularpractice/shop");
-        productPage.pageValidations();
-        productPage.getCardCount().should('have.length',4);
-        productPage.selectProduct(productName);
-        productPage.selectSecondProduct();
+
+        productPage.getShopName().should("be.visible");
+        productPage.getCards().should('have.length', 4);
+
+        productPage.addProductToCart(productName);
+        productPage.getCheckoutButton().should("contain.text", "Checkout ( 1 )");
+
+        productPage.addFirstProductToCart();
+        productPage.getCheckoutButton().should("contain.text", "Checkout ( 2 )");
+
         cartPage = productPage.goToCart();
-        cartPage.validateCartTotal().then(function(sum)
+        cartPage.getCartTotal().then(function(sum)
         {
             expect(sum).to.be.lessThan(200000);
         });
 
         confirmationPage = cartPage.checkout();
         confirmationPage.submitOrder();
+        confirmationPage.getAlertMessage().should("contain", "Success");
     });
 });

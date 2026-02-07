@@ -1,10 +1,13 @@
 class ConfirmationPage
 {
-
     submitOrder()
     {
         cy.submitFormDetails();
-        cy.get(".alert-success").should("contain", "Success");
+    }
+
+    getAlertMessage()
+    {
+        return cy.get(".alert-success");
     }
 }
 export default ConfirmationPage;

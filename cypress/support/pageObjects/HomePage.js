@@ -1,14 +1,26 @@
 import ProductPage from "./ProductPage";
 
 class HomePage {
-    goto(url) {
+    goTo(url) {
         cy.visit(url);
+    }
+
+    getUsernameField() {
+        return cy.get("#username");
+    }
+
+    getPasswordField() {
+        return cy.get("#password");
+    }
+
+    getSignInButton() {
+        return cy.contains("Sign In");
     }
     
     login(username, password) {
-        cy.get("#username").type(username);
-        cy.get("#password").type(password);
-        cy.contains("Sign In").click();
+        this.getUsernameField().type(username);
+        this.getPasswordField().type(password);
+        this.getSignInButton().click();
         return new ProductPage();
     }
 }

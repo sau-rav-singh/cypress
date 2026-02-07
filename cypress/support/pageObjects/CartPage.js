@@ -2,8 +2,7 @@ import ConfirmationPage from "./ConfirmationPage";
 
 class CartPage
 {
-
-    validateCartTotal()
+    getCartTotal()
     {
         let sum = 0;
         return cy.get('tr td:nth-child(4) strong').each(($el) =>
@@ -12,7 +11,7 @@ class CartPage
             sum = Number(sum) + Number(amount);
         }).then(() =>
         {
-            return sum; // This wraps the sum so the test can access it
+            return sum;
         });
     }
 

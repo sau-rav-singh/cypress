@@ -2,16 +2,17 @@ import CartPage from "./CartPage";
 
 class ProductPage
 {
-    pageValidations()
+    getShopName()
     {
-        cy.contains("Shop Name").should("be.visible");
+        return cy.contains("Shop Name");
     }
 
-    getCardCount(){
-        return cy.get('app-card')
+    getCards()
+    {
+        return cy.get('app-card');
     }
 
-    selectProduct(productName)
+    addProductToCart(productName)
     {
         cy.get("app-card")
             .filter(`:contains("${productName}")`)
@@ -19,16 +20,20 @@ class ProductPage
             {
                 cy.wrap($el).contains("button", "Add").click();
             });
-        cy.get(".nav-item.active a").should("contain.text", "Checkout ( 1 )");
     }
 
-    selectSecondProduct()
+    addFirstProductToCart()
     {
         cy.get("app-card").eq(0).contains("button", "Add").click();
-        cy.get(".nav-item.active a").should("contain.text", "Checkout ( 2 )");
     }
 
-    goToCart(){
+    getCheckoutButton()
+    {
+        return cy.get(".nav-item.active a");
+    }
+
+    goToCart()
+    {
         cy.contains("a", "Checkout").click();
         return new CartPage();
     }
