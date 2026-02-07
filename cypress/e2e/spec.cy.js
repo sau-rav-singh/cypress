@@ -2,7 +2,7 @@
 /// <reference types="cypress-iframe" />
 import 'cypress-iframe';
 
-describe.skip('My First Test', () =>
+describe('My First Test', () =>
 {
 
   it("Sabji Purchase", () =>

@@ -1,6 +1,6 @@
 describe("E2E Test", () =>
 {
-    it.only("First Test", () =>
+    it("First Test", () =>
     {
         cy.visit("https://rahulshettyacademy.com/loginpagePractise/");
         cy.get("#username").type("rahulshettyacademy");
