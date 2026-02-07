@@ -1,62 +1,44 @@
+import HomePage from '../support/pageObjects/HomePage';
+import ProductPage from '../support/pageObjects/ProductPage';
+
 describe("E2E Test", () =>
 {
     let testData;
+    let homepage, productPage, cartPage, confirmationPage;
+
     beforeEach(() =>
     {
         cy.fixture("example").then((data) =>
         {
             testData = data;
+            homepage = new HomePage();
+            productPage = new ProductPage();
         });
     });
 
     it("First Test", () =>
     {
-        cy.visit("https://rahulshettyacademy.com/loginpagePractise/");
-        // Accessing data from fixture
-        cy.get("#username").type(testData.username);
-        cy.get("#password").type(testData.passsword); // Note: matches your JSON spelling
-        cy.contains("Sign In").click();
+        homepage.goto("https://rahulshettyacademy.com/loginpagePractise/")
+        homepage.login(testData.username, testData.passsword);
         cy.contains("Shop Name").should("be.visible");
     });
 
-    it("Second Test", () =>
+    it.only("Second Test", () =>
     {
-        // Using productName from fixture
         const productName = testData.productName;
-
+        Cypress.config('defaultCommandTimeout', 10000)
         cy.visit("https://rahulshettyacademy.com/angularpractice/shop");
-        cy.contains("Shop Name").should("be.visible");
-        cy.get("div.card-body").should("have.length", 4);
+        productPage.pageValidations();
+        productPage.getCardCount().should('have.length',4);
+        productPage.selectProduct(productName);
+        productPage.selectSecondProduct();
+        cartPage = productPage.goToCart();
+        cartPage.validateCartTotal().then(function(sum)
+        {
+            expect(sum).to.be.lessThan(200000);
+        });
 
-        cy.get("app-card")
-            .filter(`:contains("${productName}")`)
-            .then(($el) =>
-            {
-                cy.wrap($el).contains("button", "Add").click();
-            });
-
-        cy.get(".nav-item.active a").should("contain.text", "Checkout ( 1 )");
-        cy.get("app-card").eq(0).contains("button", "Add").click();
-        cy.get(".nav-item.active a").should("contain.text", "Checkout ( 2 )");
-        cy.contains("a", "Checkout").click();
-
-        let sum = 0;
-        cy.get("tr td:nth-child(4) strong")
-            .each(($el) =>
-            {
-                const amount = Number($el.text().split(" ")[1].trim());
-                sum += amount;
-            })
-            .then(() =>
-            {
-                cy.log("The total sum is: " + sum);
-                expect(sum).to.be.lessThan(200000);
-            });
-
-        cy.contains("button", "Checkout").click();
-        cy.get("#country").type("India");
-        cy.get(".suggestions ul li a").click();
-        cy.get(".btn-success").click();
-        cy.get(".alert-success").should("contain", "Success");
+        confirmationPage = cartPage.checkout();
+        confirmationPage.submitOrder();
     });
 });

@@ -13,6 +13,7 @@ describe("E2E Test", () =>
     it("Second Test", () =>
     {
         const productName = "Nokia Edge";
+        Cypress.config('defaultCommandTimeout', 10000)
         cy.visit("https://rahulshettyacademy.com/angularpractice/shop");
         cy.contains("Shop Name").should("be.visible");
         cy.get("div.card-body").should("have.length", 4);

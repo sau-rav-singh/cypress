@@ -8,7 +8,7 @@ export default defineConfig({
     {
       require('cypress-mochawesome-reporter/plugin')(on);
     },
-    defaultCommandTimeout: 10000,
+    defaultCommandTimeout: 5000,
     requestTimeout: 15000,
     pageLoadTimeout: 60000,
     specPattern: 'cypress/e2e/**/*.cy.js',
