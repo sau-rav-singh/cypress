@@ -1,0 +1,96 @@
+It's great to hear that worked! Having a clean, all-in-one reporting setup makes a world of difference for long-term maintenance.
+
+Here is the finalized documentation for setting up the **`cypress-mochawesome-reporter`**.
+
+---
+
+## Cypress All-in-One HTML Reporting Setup Guide
+
+### 1. Installation
+
+First, install the main plugin. This single package replaces the need for separate merge and generator tools.
+
+```bash
+npm install --save-dev cypress-mochawesome-reporter
+
+```
+
+### 2. Configure `cypress.config.js`
+
+The configuration needs two parts: identifying the **reporter** and initializing the **plugin**.
+
+```javascript
+import { defineConfig } from "cypress";
+
+export default defineConfig({
+  // 1. Tell Cypress to use this reporter
+  reporter: 'cypress-mochawesome-reporter',
+
+  // 2. (Optional) Custom settings for the report
+  reporterOptions: {
+    reportDir: 'cypress/reports',
+    charts: true,                // Shows a pie chart of pass/fail
+    reportPageTitle: 'E2E Report',
+    embeddedScreenshots: true,   // Puts failure images inside the HTML file
+    inlineAssets: true,          // CSS/JS stays inside the HTML for easy sharing
+  },
+
+  e2e: {
+    setupNodeEvents(on, config) {
+      // 3. Register the plugin for 'after:run' events (merging/HTML generation)
+      require('cypress-mochawesome-reporter/plugin')(on);
+    },
+    specPattern: 'cypress/e2e/**/*.cy.js',
+  },
+});
+
+```
+
+### 3. Register in Global Hooks
+
+Open `cypress/support/e2e.js` and add the following line. This allows the reporter to capture snapshots and test statuses as they happen.
+
+```javascript
+import 'cypress-mochawesome-reporter/register';
+
+```
+
+---
+
+### 4. Running the Tests
+
+You can run your tests as usual. The plugin will automatically clean the reports folder, run the tests, and generate the final HTML.
+
+**In your `package.json`:**
+
+```json
+"scripts": {
+  "regression": "npx cypress run --spec 'cypress/e2e/**/*.cy.js'"
+}
+
+```
+
+**Run command:**
+
+```bash
+npm run regression
+
+```
+
+---
+
+### Key Features of this Setup
+
+* **Automatic Merging:** You no longer need `mochawesome-merge`. The plugin detects multiple spec files and creates one final `index.html`.
+* **Self-Contained:** With `inlineAssets: true`, you get a single HTML file that doesn't rely on external folders, making it perfect for CI/CD attachments.
+* **Visual Proof:** If a test fails, the screenshot is automatically attached to that specific test case in the report.
+
+### Summary Checklist
+
+| File | Action |
+| --- | --- |
+| `package.json` | Install `cypress-mochawesome-reporter` |
+| `cypress.config.js` | Add `reporter` and `require(...plugin)(on)` |
+| `cypress/support/e2e.js` | Add `import 'cypress-mochawesome-reporter/register'` |
+
+Would you like me to show you how to exclude the `cypress/reports` folder from your Git commits so you don't clutter your repository with old test results?
