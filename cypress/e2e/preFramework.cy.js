@@ -1,6 +1,6 @@
 describe("Pre-Framework Raw Test Suite", () =>
 {
-    it("Login and Dashboard Verification", () =>
+    it("Verify Login Functionality", () =>
     {
         cy.visit("/loginpagePractise/");
         cy.get("#username").type(Cypress.env('username'));
@@ -12,6 +12,7 @@ describe("Pre-Framework Raw Test Suite", () =>
     it("E-Commerce Product Selection, Cart Validation, and Checkout", () =>
     {
         const productName = "Nokia Edge";
+        // Increase timeout for this specific test
         Cypress.config('defaultCommandTimeout', 10000);
 
         cy.visit("/angularpractice/shop");
@@ -27,13 +28,15 @@ describe("Pre-Framework Raw Test Suite", () =>
             {
                 cy.wrap($el).contains("button", "Add").click();
             });
+
+        // Verify Cart count updates
         cy.get(".nav-item.active a").should("contain.text", "Checkout ( 1 )");
 
-        // Add first product
+        // Add another product (first one in the list)
         cy.get("app-card").eq(0).contains("button", "Add").click();
         cy.get(".nav-item.active a").should("contain.text", "Checkout ( 2 )");
 
-        // Go to Cart
+        // Navigate to Cart
         cy.contains("a", "Checkout").click();
 
         // Validate Cart Total
@@ -50,13 +53,14 @@ describe("Pre-Framework Raw Test Suite", () =>
                 expect(sum).to.be.lessThan(200000);
             });
 
-        // Checkout Process
+        // Proceed to Checkout
         cy.contains('button', 'Checkout').click();
         cy.get("#country").type("India");
 
-        // Wait for suggestions and click
+        // Select Country from suggestions
         cy.get(".suggestions > ul > li > a").click();
 
+        // Agree to Terms and Purchase
         cy.get("#checkbox2").click({ force: true });
         cy.get(".btn-success").click();
 
