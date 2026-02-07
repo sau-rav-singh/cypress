@@ -94,3 +94,13 @@ npm run regression
 | `cypress/support/e2e.js` | Add `import 'cypress-mochawesome-reporter/register'` |
 
 Would you like me to show you how to exclude the `cypress/reports` folder from your Git commits so you don't clutter your repository with old test results?
+-------------------------
+ZIP
+
+npm install --save-dev bestzip
+
+scripts
+"scripts": {
+  "archive:report": "node -e \"const fs = require('fs'); if (fs.existsSync('cypress/reports')) { const ts = new Date().toISOString().replace(/[:.]/g, '-'); if (!fs.existsSync('cypress/archives')) fs.mkdirSync('cypress/archives'); require('bestzip')({ source: 'cypress/reports/*', destination: `cypress/archives/report_${ts}.zip` }).then(() => console.log('Old report archived.')); }\"",
+  "regression": "npm run archive:report && npx cypress run --spec 'cypress/e2e/**/*.cy.js'"
+}

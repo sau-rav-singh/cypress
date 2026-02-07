@@ -140,3 +140,4 @@ vite.config.ts.timestamp-*
 /.idea/
 /cypress/screenshots/
 /cypress/reports/
+/cypress/archives/

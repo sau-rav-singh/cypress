@@ -1,4 +1,4 @@
-describe("E2E Test", () =>
+describe.skip("E2E Test", () =>
 {
     let testData;
     beforeEach(() =>

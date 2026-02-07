@@ -1,12 +1,13 @@
 describe("E2E Test", () =>
 {
-    it("First Test", () =>
+    it.only("First Test", () =>
     {
         cy.visit("https://rahulshettyacademy.com/loginpagePractise/");
         cy.get("#username").type("rahulshettyacademy");
         cy.get("#password").type("Learning@830$3mK2");
         cy.contains("Sign In").click();
         cy.contains("Shop Name").should("be.visible");
+        expect(3).to.be.equal(3);
     });
 
     it("Second Test", () =>

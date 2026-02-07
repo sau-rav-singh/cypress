@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "regression": "npx cypress run --spec 'cypress/e2e/**/*.cy.js'"
+    "archive:report": "node -e \"const fs = require('fs'); if (fs.existsSync('cypress/reports')) { const ts = new Date().toISOString().replace(/[:.]/g, '-'); if (!fs.existsSync('cypress/archives')) fs.mkdirSync('cypress/archives'); require('bestzip')({ source: 'cypress/reports/*', destination: `cypress/archives/report_${ts}.zip` }).then(() => console.log('Old report archived.')); }\"",
+    "regression": "npm run archive:report && npx cypress run --spec 'cypress/e2e/**/*.cy.js'"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +13,7 @@
   "type": "commonjs",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "bestzip": "^2.2.1",
     "cypress": "^15.10.0",
     "cypress-iframe": "^1.0.1",
     "cypress-mochawesome-reporter": "^4.0.2",
