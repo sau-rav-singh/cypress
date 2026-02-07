@@ -110,3 +110,6 @@ scripts
 npx cypress run --env username="newuser",password="newpass"
 -----------------------
 npx cypress run --config baseUrl="https://your-new-url.com"
+
+-----------------
+npx cypress run --record --key ac221b0a-30c0-4c65-a273-c38779483b03

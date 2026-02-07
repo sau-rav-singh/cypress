@@ -2,6 +2,7 @@ import { defineConfig } from "cypress";
 import repoPlugin from 'cypress-mochawesome-reporter/plugin';
 
 export default defineConfig({
+  projectId: "xax378",
   reporter: 'cypress-mochawesome-reporter',
   env: {
     username: "rahulshettyacademy",
@@ -17,5 +18,9 @@ export default defineConfig({
     requestTimeout: 15000,
     pageLoadTimeout: 60000,
     specPattern: 'cypress/e2e/**/*.cy.js',
+  },
+  retries: {
+    runMode: 1,
+    openMode: 0,
   },
 });
