@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "archive:report": "node -e \"const fs = require('fs'); if (fs.existsSync('cypress/reports')) { const ts = new Date().toISOString().replace(/[:.]/g, '-'); if (!fs.existsSync('cypress/archives')) fs.mkdirSync('cypress/archives'); require('bestzip')({ source: 'cypress/reports/*', destination: `cypress/archives/report_${ts}.zip` }).then(() => console.log('Old report archived.')); }\"",
-    "regression": "npm run archive:report && npx cypress run --spec 'cypress/e2e/**/*.cy.js'"
+    "regression": "npm run archive:report && npx cypress run --spec 'cypress/e2e/**/*.cy.js' --record --key ac221b0a-30c0-4c65-a273-c38779483b03"
   },
   "keywords": [],
   "author": "",
