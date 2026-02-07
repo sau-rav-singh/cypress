@@ -1,4 +1,5 @@
 import { defineConfig } from "cypress";
+import repoPlugin from 'cypress-mochawesome-reporter/plugin';
 
 export default defineConfig({
   reporter: 'cypress-mochawesome-reporter',
@@ -10,7 +11,7 @@ export default defineConfig({
     baseUrl: "https://rahulshettyacademy.com",
     setupNodeEvents(on, config)
     {
-      require('cypress-mochawesome-reporter/plugin')(on);
+      repoPlugin(on);
     },
     defaultCommandTimeout: 5000,
     requestTimeout: 15000,
