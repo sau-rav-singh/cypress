@@ -3,8 +3,9 @@ import { defineConfig } from "cypress";
 export default defineConfig({
   reporter: 'cypress-mochawesome-reporter',
   env: {
+    username: "rahulshettyacademy",
+    password: "Learning@830$3mK2"
   },
-  allowCypressEnv: false,
   e2e: {
     baseUrl: "https://rahulshettyacademy.com",
     setupNodeEvents(on, config)

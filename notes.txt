@@ -104,3 +104,9 @@ scripts
   "archive:report": "node -e \"const fs = require('fs'); if (fs.existsSync('cypress/reports')) { const ts = new Date().toISOString().replace(/[:.]/g, '-'); if (!fs.existsSync('cypress/archives')) fs.mkdirSync('cypress/archives'); require('bestzip')({ source: 'cypress/reports/*', destination: `cypress/archives/report_${ts}.zip` }).then(() => console.log('Old report archived.')); }\"",
   "regression": "npm run archive:report && npx cypress run --spec 'cypress/e2e/**/*.cy.js'"
 }
+
+
+---------------------------
+npx cypress run --env username="newuser",password="newpass"
+-----------------------
+npx cypress run --config baseUrl="https://your-new-url.com"

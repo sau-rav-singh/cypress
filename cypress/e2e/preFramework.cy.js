@@ -3,8 +3,8 @@ describe("Pre-Framework Raw Test Suite", () =>
     it("Login and Dashboard Verification", () =>
     {
         cy.visit("/loginpagePractise/");
-        cy.get("#username").type("rahulshettyacademy");
-        cy.get("#password").type("Learning@830$3mK2");
+        cy.get("#username").type(Cypress.env('username'));
+        cy.get("#password").type(Cypress.env('password'));
         cy.contains("Sign In").click();
         cy.contains("Shop Name").should("be.visible");
     });
