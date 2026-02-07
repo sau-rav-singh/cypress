@@ -16,14 +16,14 @@ describe("Framework Test", () =>
         });
     });
 
-    it("First Test", () =>
+    it("Login and Dashboard Verification", () =>
     {
         homepage.goTo("https://rahulshettyacademy.com/loginpagePractise/")
         homepage.login(testData.username, testData.passsword);
         productPage.getShopName().should("be.visible");
     });
 
-    it("Second Test", () =>
+    it("E-Commerce Product Selection, Cart Validation, and Checkout", () =>
     {
         const productName = testData.productName;
         Cypress.config('defaultCommandTimeout', 10000)
