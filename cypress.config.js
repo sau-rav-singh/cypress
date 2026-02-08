@@ -123,8 +123,7 @@ export default defineConfig({
           });
 
           if (output.row !== -1) {
-            // Assuming 'Price' is in the 3rd column
-            const priceColumnIndex = 3;
+            const priceColumnIndex = 4;
             const cell = worksheet.getCell(output.row, priceColumnIndex);
             cell.value = newPrice;
             await workbook.xlsx.writeFile(fileLocation);
