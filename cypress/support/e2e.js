@@ -31,3 +31,10 @@ if (!app.document.head.querySelector('[data-hide-command-log-request]')) {
   style.setAttribute('data-hide-command-log-request', '');
   app.document.head.appendChild(style);
 }
+
+beforeEach(() =>
+{
+  cy.intercept('https://www.googleadservices.com/**', { statusCode: 200, body: {} });
+  cy.intercept('https://www.googletagmanager.com/**', { statusCode: 200, body: {} });
+  cy.intercept('**/pagead/conversion/**', { statusCode: 200, body: {} });
+});

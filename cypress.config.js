@@ -4,6 +4,8 @@ import repoPlugin from 'cypress-mochawesome-reporter/plugin';
 export default defineConfig({
   projectId: "xax378",
   reporter: 'cypress-mochawesome-reporter',
+  // This prevents the requests from even being made/logged
+  blockHosts: ["*google-analytics.com", "*segment.io"],
   env: {
     username: "rahulshettyacademy",
     password: "Learning@830$3mK2"
