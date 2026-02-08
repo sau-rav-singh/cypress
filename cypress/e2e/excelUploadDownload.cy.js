@@ -17,6 +17,6 @@ describe('Upload-download test', () =>
         cy.task('updatePrice', { fruitName: searchTextFruit, newPrice: replaceNum, filePath: FilePath });
 
         cy.get("#fileinput").selectFile(FilePath);
-        cy.contains(searchTextFruit).parent().parent().find("#cell-4-undefined").should('have.text', replaceNum);
+        cy.contains(searchTextFruit).parent().parent().find("#cell-3-undefined").should('have.text', replaceNum);
     })
 })
