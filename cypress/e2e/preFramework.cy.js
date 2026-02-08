@@ -1,3 +1,5 @@
+const config = Cypress.expose('PLUGIN_CONFIG');
+
 describe("Pre-Framework Raw Test Suite", () =>
 {
     it("Verify Login Functionality", () =>
@@ -10,6 +12,7 @@ describe("Pre-Framework Raw Test Suite", () =>
         });
         cy.contains("Sign In").click();
         cy.contains("Shop Name").should("be.visible");
+        cy.log("Exposed Value: "+config);
     });
 
     it("E-Commerce Product Selection, Cart Validation, and Checkout", () =>
