@@ -3,8 +3,11 @@ describe("Pre-Framework Raw Test Suite", () =>
     it("Verify Login Functionality", () =>
     {
         cy.visit("/loginpagePractise/");
-        cy.get("#username").type(Cypress.env('username'));
-        cy.get("#password").type(Cypress.env('password'));
+        cy.env(['username', 'password']).then(({ username, password }) =>
+        {
+            cy.get("#username").type(username);
+            cy.get("#password").type(password);
+        });
         cy.contains("Sign In").click();
         cy.contains("Shop Name").should("be.visible");
     });
