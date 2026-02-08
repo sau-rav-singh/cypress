@@ -1,6 +1,8 @@
 import { defineConfig } from "cypress";
 const ExcelJS = require("exceljs");
 import repoPlugin from 'cypress-mochawesome-reporter/plugin';
+const fs = require('fs');
+const path = require('path');
 
 export default defineConfig({
   allowCypressEnv: false,
@@ -35,6 +37,51 @@ export default defineConfig({
             rows.push(row.values);// Note: row.values returns an array where index 1 is column A
           });
           return rows;
+        },
+      });
+      on("task", {
+        async createJsonFromExcel(filePath)
+        {
+          const workbook = new ExcelJS.Workbook();
+          await workbook.xlsx.readFile('cypress/fixtures/' + filePath);
+
+          const processedSheets = [];
+
+          workbook.eachSheet((worksheet) =>
+          {
+            const sheetName = worksheet.name;
+            const jsonData = [];
+            let headers = [];
+
+            worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) =>
+            {
+              // row.values returns [empty, col1, col2...]
+              const rowValues = row.values.slice(1);
+
+              if (rowNumber === 1)
+              {
+                // Identify the headers from the first row
+                headers = rowValues;
+              } else
+              {
+                // Map each cell to its corresponding header
+                const rowObject = {};
+                headers.forEach((header, index) =>
+                {
+                  rowObject[header] = rowValues[index] !== undefined ? rowValues[index] : null;
+                });
+                jsonData.push(rowObject);
+              }
+            });
+
+            const jsonFileName = `${sheetName}.json`;
+            const outputPath = path.join('cypress/fixtures', jsonFileName);
+
+            fs.writeFileSync(outputPath, JSON.stringify(jsonData, null, 2));
+            processedSheets.push({ sheetName, fileName: jsonFileName });
+          });
+
+          return processedSheets;
         },
       });
     },
