@@ -1,4 +1,5 @@
 import { defineConfig } from "cypress";
+const ExcelJS = require("exceljs");
 import repoPlugin from 'cypress-mochawesome-reporter/plugin';
 
 export default defineConfig({
@@ -19,6 +20,23 @@ export default defineConfig({
     setupNodeEvents(on, config)
     {
       repoPlugin(on);
+      on("task", {
+        async readExcelJS(filePath)
+        {
+          const workbook = new ExcelJS.Workbook();
+          await workbook.xlsx.readFile('cypress/fixtures/' + filePath);
+
+          const worksheet = workbook.getWorksheet(1); // Get first sheet
+          const rows = [];
+
+          // Iterate through rows and build a JSON object
+          worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) =>
+          {
+            rows.push(row.values);// Note: row.values returns an array where index 1 is column A
+          });
+          return rows;
+        },
+      });
     },
     defaultCommandTimeout: 5000,
     requestTimeout: 15000,

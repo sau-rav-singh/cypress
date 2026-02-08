@@ -19,6 +19,7 @@
     "cypress-mochawesome-reporter": "^4.0.2",
     "eslint": "^10.0.0",
     "globals": "^17.3.0",
+    "mocha": "^11.3.0",
     "neat-csv": "5.1.0"
   },
   "dependencies": {
@@ -75,6 +76,7 @@
     "es-set-tostringtag": "^2.1.0",
     "escape-string-regexp": "^1.0.5",
     "eventemitter2": "^6.4.7",
+    "exceljs": "^4.4.0",
     "execa": "^4.1.0",
     "executable": "^4.1.1",
     "extend": "^3.0.2",
