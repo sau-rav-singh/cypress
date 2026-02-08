@@ -2,24 +2,26 @@ const exceljs = require('exceljs');
 const path = require('path');
 const fs = require('fs').promises;
 
-async function writeExcel(searchText, replaceText, change, filePath)
+async function updatePrice(fruitName, newPrice, filePath)
 {
     const workbook = new exceljs.Workbook();
     await workbook.xlsx.readFile(filePath);
     const worksheet = workbook.getWorksheet('Sheet1');
-    const output = await findTextInWorksheet(worksheet, searchText);
 
-    if (output.row !== -1 && output.column !== -1)
+    // Find the row where the fruit is located
+    const output = await findTextInWorksheet(worksheet, fruitName);
+
+    if (output.row !== -1)
     {
-        const rowChange = change.rowChange || 0;
-        const colChange = change.colChange || 0;
-        const cell = worksheet.getCell(output.row + rowChange, output.column + colChange);
-        cell.value = replaceText;
+        // Assuming 'Price' is in the 3rd column (based on: Fruit, Color, Price, Season)
+        const priceColumnIndex = 3;
+        const cell = worksheet.getCell(output.row, priceColumnIndex);
+        cell.value = newPrice;
         await workbook.xlsx.writeFile(filePath);
-        console.log("Write operation successful.");
+        console.log(`Updated price of ${fruitName} to ${newPrice}.`);
     } else
     {
-        console.log("Search text not found.");
+        console.log(`Fruit '${fruitName}' not found.`);
     }
 }
 
@@ -92,18 +94,13 @@ async function convertAllSheetsToJson(filePath)
         console.log(`Generated: ${jsonFileName}`);
     }
 }
+
 async function main()
 {
     const filePath = path.join(__dirname, '..', 'fixtures', 'excelData.xlsx');
-
-    // Update Mango Price to 350
-    // https://rahulshettyacademy.com/upload-download-test/
-    await writeExcel("Mango", 350, { rowChange: 0, colChange: 2 }, filePath);
-
-    // Read Mango position
+    await updatePrice("Mango", 400, filePath);
     const output = await readExcel(filePath, "Mango");
     console.log("Search Text found at row: " + output.row + ", column: " + output.column);
-
     await convertAllSheetsToJson(filePath);
 }
 
