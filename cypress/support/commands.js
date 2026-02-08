@@ -31,12 +31,18 @@ Cypress.Commands.add('submitFormDetails', () =>
     cy.get(".btn-success").click()
 })
 
-Cypress.Commands.add('LoginApi', () =>
+Cypress.Commands.add('LoginApi', (email = "anshika@gmail.com", password = "Iamking@000") =>
 {
-    cy.request("POST", "https://rahulshettyacademy.com/api/ecom/auth/login", { "userEmail": "anshika@gmail.com", "userPassword": "Iamking@000" })
-        .then((response) =>
+    cy.session(email, () =>
+    {
+        cy.request({
+            method: "POST",
+            url: "https://rahulshettyacademy.com/api/ecom/auth/login",
+            body: { userEmail: email, userPassword: password }
+        }).then((response) =>
         {
             expect(response.status).to.eq(200);
-            Cypress.env('token', response.body.token)
-        })
-})
+            window.localStorage.setItem('token', response.body.token);
+        });
+    });
+});

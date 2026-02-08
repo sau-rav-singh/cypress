@@ -7,15 +7,8 @@ describe('JWT Session', () =>
     {
         let productName;
 
-        cy.LoginApi().then(() =>
-        {
-            cy.visit("https://rahulshettyacademy.com/client", {
-                onBeforeLoad: (window) =>
-                {
-                    window.localStorage.setItem('token', Cypress.env('token'));
-                }
-            });
-        });
+        cy.LoginApi();
+        cy.visit("https://rahulshettyacademy.com/client");
 
         cy.get(".card-body b").eq(1).then((ele) =>
         {
