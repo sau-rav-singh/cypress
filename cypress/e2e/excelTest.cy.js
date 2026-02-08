@@ -23,7 +23,7 @@ describe("Excel Multi-Sheet Test Suite", () => {
         });
     });
 
-    describe.skip('Data Manipulation with excelData.xlsx', () => {
+    describe('Data Manipulation with excelData.xlsx', () => {
         it('should convert sheets to JSON and validate fruit data', () => {
             cy.task('convertAllSheetsToJson', excelDataFile);
             cy.readFile(sheet1Fixture).then((data) => {
