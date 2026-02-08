@@ -13,15 +13,14 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-// Import commands.js using ES2015 syntax:
 import './commands'
 import 'cypress-mochawesome-reporter/register';
 
 const app = window.top;
 
-if (!app.document.head.querySelector('[data-hide-command-log-request]')) {
+if (!app.document.head.querySelector('[data-hide-command-log-request]'))
+{
   const style = app.document.createElement('style');
-  // We target only the 'request' type entries, leaving 'log' entries alone
   style.innerHTML = `
     .command-name-request,
     .command-info-request-type {
