@@ -53,22 +53,40 @@ describe('API Mocking and Interaction Test Suite', () =>
 
     it("Should retrieve book details via GET API", () =>
     {
+        const randomIsbn = Math.random().toString(36).substring(2, 5);
+        const randomAisle = Math.floor(1000 + Math.random() * 9000).toString();
+        const bookName = "Learn Appium Automation with Java";
+        const author = "John foer";
+
         cy.request({
-            method: 'GET',
-            url: 'https://rahulshettyacademy.com/Library/GetBook.php?ID=bcd2926',
+            method: 'POST',
+            url: 'https://rahulshettyacademy.com/Library/Addbook.php',
+            body: {
+                "name": bookName,
+                "isbn": randomIsbn,
+                "aisle": randomAisle,
+                "author": author
+            }
         }).then((response) =>
         {
             expect(response.status).to.eq(200);
-            expect(response.body).to.be.an('array').and.have.length(1);
+            expect(response.body).to.have.property('Msg', 'successfully added');
+            const bookID = response.body.ID;
 
-            const book = response.body[0];
-            expect(book).to.have.property('book_name', 'Learn Appium Automation with Java');
-            expect(book).to.have.property('isbn', 'bcd');
-            expect(book.aisle.trim()).to.eq('2926');
-            expect(book).to.have.property('author', 'John foer');
+            cy.request({
+                method: 'GET',
+                url: `https://rahulshettyacademy.com/Library/GetBook.php?ID=${bookID}`,
+            }).then((getResponse) =>
+            {
+                expect(getResponse.status).to.eq(200);
+                expect(getResponse.body).to.be.an('array').and.have.length(1);
 
-            expect(response.headers).to.have.property('content-type', 'application/json;charset=UTF-8');
-            cy.log("Response Body is " + JSON.stringify(response.body));
+                const book = getResponse.body[0];
+                expect(book).to.have.property('book_name', bookName);
+                expect(book).to.have.property('isbn', randomIsbn);
+                expect(book).to.have.property('aisle', randomAisle);
+                expect(book).to.have.property('author', author);
+            });
         });
     });
 

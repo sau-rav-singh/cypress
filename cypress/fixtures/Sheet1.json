@@ -2,7 +2,7 @@
   "mango": {
     "color": "Yellow",
     "price": 500,
-    "season": "Summer"
+    "season": 400
   },
   "apple": {
     "color": "Red",

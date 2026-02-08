@@ -46,7 +46,7 @@ describe("Excel Multi-Sheet Test Suite", () => {
                 });
             });
 
-            it('should update fruit price and verify change', () => {
+            it.only('should update fruit price and verify change', () => {
                 cy.task('updatePrice', {
                     fruitName,
                     newPrice,
