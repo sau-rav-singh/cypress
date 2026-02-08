@@ -18,7 +18,8 @@
     "cypress-iframe": "^1.0.1",
     "cypress-mochawesome-reporter": "^4.0.2",
     "eslint": "^10.0.0",
-    "globals": "^17.3.0"
+    "globals": "^17.3.0",
+    "neat-csv": "5.1.0"
   },
   "dependencies": {
     "aggregate-error": "^3.1.0",

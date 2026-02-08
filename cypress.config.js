@@ -25,4 +25,6 @@ export default defineConfig({
     runMode: 1,
     openMode: 0,
   },
+  viewportWidth: 1366,
+  viewportHeight: 720,
 });
