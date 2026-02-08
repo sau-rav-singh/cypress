@@ -167,4 +167,14 @@ describe('Automation Practice Suite', () =>
     })
   });
 
+  it('Fixture Data Validation', () =>
+  {
+    cy.fixture('example').then((data) =>
+    {
+      expect(data.username).to.equal('rahulshettyacademy');
+      expect(data.passsword).to.equal('Learning@830$3mK2');
+      expect(data.productName).to.equal('Nokia Edge');
+    });
+  });
+
 });
