@@ -68,6 +68,7 @@ describe('API Mocking and Interaction Test Suite', () =>
             expect(book).to.have.property('author', 'John foer');
 
             expect(response.headers).to.have.property('content-type', 'application/json;charset=UTF-8');
+            cy.log("Response Body is " + JSON.stringify(response.body));
         });
     });
 
