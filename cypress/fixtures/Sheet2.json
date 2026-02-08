@@ -1,32 +1,6 @@
-{
-  "mango": {
-    "color": "Yellow",
-    "price": 400,
-    "season": "Summer"
-  },
-  "apple": {
-    "color": "Red",
-    "price": 345,
-    "season": "Winter"
-  },
-  "papaya": {
-    "color": "Orange",
-    "price": 187,
-    "season": "Spring"
-  },
-  "banana": {
-    "color": "Yellow",
-    "price": 69,
-    "season": "All"
-  },
-  "kivi": {
-    "color": "Green",
-    "price": 399,
-    "season": "Winter"
-  },
-  "orange": {
-    "color": "Orange",
-    "price": 199,
-    "season": "Summer"
+[
+  {
+    "hello": "npm",
+    "world": "cypress"
   }
-}
+]
