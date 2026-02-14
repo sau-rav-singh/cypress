@@ -69,6 +69,23 @@ playlist.forEach((track, index) =>
     console.log(`${index + 1}. Now playing: ${track}`);// 1. Now playing: Song A
 });
 
+const colors = ['red', 'green', 'blue'];
+for (const color of colors)
+{
+    console.log(color);
+}
+
+colors.forEach((color) =>
+{
+    console.log(color)
+})
+
+const user = { name: 'Alice', age: 30 };
+for (const key in user)
+{
+    console.log(`${key}: ${user[key]}`);
+}
+
 var array1 = new Array(6);
 var array2 = new Array(10, 20, 30);
 var array3 = [10, 20, 30];

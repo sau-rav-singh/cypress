@@ -1,6 +1,8 @@
-import { Human } from './objects.js';
+//import { Human } from './objects.js';
 
-class baby extends Human
+import * as object from './objects.js'
+
+export class baby extends object.Human
 {
     constructor(firstname, lastname, age, city, petName)
     {
