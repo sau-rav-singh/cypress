@@ -35,7 +35,7 @@ if (true)
     let y = 2; // Stays inside
 }
 console.log(x); // 1
-console.log(y); // ReferenceError
+//console.log(y); // ReferenceError
 
 console.log("---------------");//---------------
 const flag = true;
@@ -62,6 +62,13 @@ for (let i = 0; i < 5; i++)
     console.log("For Loop " + i);//For Loop 0, For Loop 1, For Loop 2, For Loop 3, For Loop 4
 }
 
+const playlist = ['Song A', 'Song B', 'Song C'];
+
+playlist.forEach((track, index) =>
+{
+    console.log(`${index + 1}. Now playing: ${track}`);// 1. Now playing: Song A
+});
+
 var array1 = new Array(6);
 var array2 = new Array(10, 20, 30);
 var array3 = [10, 20, 30];
@@ -79,8 +86,8 @@ console.log("Array 3 is " + array3);//Array 3 is 5,10,20,30
 console.log("Array 3 sliced from index 1 to 3 is " + array3.slice(1, 3));//Array 3 sliced from index 1 to 3 is 10,20
 console.log("Sum of array3 elements is " + array3.reduce((sum, value) => sum + value, 0));//Sum of array3 elements is 65
 
-scores = [11, 20, 33, 44, 50];
-evenScores = scores.filter(score => score % 2 === 0);
+let scores = [11, 20, 33, 44, 50];
+let evenScores = scores.filter(score => score % 2 === 0);
 console.log("Original scores are " + scores);//Original scores are 11,20,33,44,50
 console.log("Even scores are " + evenScores);//Even scores are 20,44,50
 
@@ -132,6 +139,15 @@ console.log("Substring of myname from index 2 to 5 is " + myname.slice(2, 5));//
 var str = 'Hello World';
 console.log("String is " + str);//String is Hello World
 console.log("String split by space is " + str.split(' '));//String split by space is Hello,World
+
+//array.splice(start, deleteCount, item1, item2, ...)
+// start,"The index where the ""surgery"" begins."
+// deleteCount,"(Optional) How many items to remove. If 0, no items are removed."
+// "item1, ...",(Optional) The new elements you want to inject into the array.
+var array4 = [1, 2, 3, 4, 5];
+console.log("Array4 before splice is " + array4);//Array4 before splice is 1,2,3,4,5
+array4.splice(2, 1); // Remove element at index 2 (3)
+console.log("Array4 after splice is " + array4);//Array4 after splice is 1,2,4,5
 
 //Parse int to string and then toString
 var num = 123;
@@ -219,10 +235,6 @@ people.forEach((p, i) =>
     console.log("Person " + i + " is " + JSON.stringify(p));
 });
 
-let b1 = new baby("saurav", "singh", 1, "pune", "fluffy");
-console.log(b1.petName);
-console.log(b1.fullName());
-
 // 1. Create the array with 5 expense amounts
 const expenses = [45.50, 12.25, 120.00, 8.99, 33.40];
 
@@ -240,3 +252,15 @@ const lowestExpense = Math.min(...expenses);
 console.log(`Total Expenses: $${totalExpenses.toFixed(2)}`);
 console.log(`Highest Expense: $${highestExpense.toFixed(2)}`);
 console.log(`Lowest Expense: $${lowestExpense.toFixed(2)}`);
+
+//Example to Prove javascript is asynchronous
+console.log("Start of script");
+setTimeout(() =>
+{
+    console.log("Inside setTimeout");
+}, 0);
+console.log("End of script");
+//Start of script
+// End of script
+// Inside setTimeout
+
