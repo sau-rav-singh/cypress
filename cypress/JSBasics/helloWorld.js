@@ -29,6 +29,14 @@ if (true)
 
 console.log("Value of day2 is " + day2);//Monday
 
+if (true)
+{
+    var x = 1; // Leaks outside the block
+    let y = 2; // Stays inside
+}
+console.log(x); // 1
+console.log(y); // ReferenceError
+
 console.log("---------------");//---------------
 const flag = true;
 
@@ -210,3 +218,25 @@ people.forEach((p, i) =>
 {
     console.log("Person " + i + " is " + JSON.stringify(p));
 });
+
+let b1 = new baby("saurav", "singh", 1, "pune", "fluffy");
+console.log(b1.petName);
+console.log(b1.fullName());
+
+// 1. Create the array with 5 expense amounts
+const expenses = [45.50, 12.25, 120.00, 8.99, 33.40];
+
+// 2. Calculate the total expenses using .reduce()
+const totalExpenses = expenses.reduce((accumulator, current) => accumulator + current, 0);
+
+// 3. Find the highest and lowest expenses using Math methods and the spread operator (...)
+const highestExpense = Math.max(...expenses);
+const lowestExpense = Math.min(...expenses);
+
+// Output the results
+// Total Expenses: $220.14
+// Highest Expense: $120.00
+// Lowest Expense: $8.99
+console.log(`Total Expenses: $${totalExpenses.toFixed(2)}`);
+console.log(`Highest Expense: $${highestExpense.toFixed(2)}`);
+console.log(`Lowest Expense: $${lowestExpense.toFixed(2)}`);

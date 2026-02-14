@@ -6,7 +6,3 @@ class baby extends Human {
         this.petName = petName;
     }
 }
-
-let b1=new baby("saurav", "singh", 1, "pune", "fluffy");
-console.log(b1.petName);
-console.log(b1.fullName());
