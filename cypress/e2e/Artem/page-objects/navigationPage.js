@@ -1,25 +1,32 @@
 class NavigationPage {
 
+  openMenu(groupMenuItemName) {
+    cy.contains('a', groupMenuItemName).invoke('attr', 'aria-expanded').then(expanded => {
+      if (expanded.includes('false')) {
+        cy.contains('a', groupMenuItemName).click()
+      }
+    })
+  }
+
   navigateToFormLayoutsPage() {
-    cy.contains('Forms').click()
+    this.openMenu('Forms')
     cy.contains('Form Layouts').click()
   }
 
   navigateToDatePickerPage() {
-    cy.contains('Forms').click()
+    this.openMenu('Forms')
     cy.contains('Datepicker').click()
   }
 
   navigateToToastrPage() {
-    cy.contains('Modal & Overlays').click()
+    this.openMenu('Modal & Overlays')
     cy.contains('Toastr').click()
   }
 
   navigateToTooltipPage() {
-    cy.contains('Modal & Overlays').click()
+    this.openMenu('Modal & Overlays')
     cy.contains('Tooltip').click()
   }
-
 }
 
-export const navigateTo = new NavigationPage();
+export const navigateTo = new NavigationPage()
