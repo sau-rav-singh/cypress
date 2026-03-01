@@ -26,18 +26,29 @@
 
 Cypress.Commands.add('openHomePage', () => {
   cy.visit('https://playground.bondaracademy.com/');
-})
+});
 
 Cypress.Commands.add('loginToApplication', () => {
-  cy.visit('https://conduit.bondaracademy.com/')
-
-  cy.contains('Sign in').click()
-
-  cy.get('input[placeholder="Email"]').type('saurav@singh.com')
-  cy.get('input[placeholder="Password"]').type('mech2704')
-
-  cy.contains('button', 'Sign in').click()
-})
+  cy.request({
+    url: 'https://conduit-api.bondaracademy.com/api/users/login',
+    method: 'POST',
+    body: {
+      "user": {
+        "email": "saurav@singh.com",
+        "password": "mech2704"
+      }
+    }
+  }).then(response => {
+    expect(response.status).to.equal(200);
+    const accessToken = response.body.user.token;
+    cy.wrap(accessToken).as('accessToken');
+    cy.visit('/', {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('jwtToken', accessToken);
+      }
+    });
+  });
+});
 
 Cypress.Commands.add('submitFormDetails', () => {
   cy.get('#country').type('India');
