@@ -1,0 +1,40 @@
+{
+  "workbench.startupEditor": "none",
+  "git.autofetch": true,
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "editor.minimap.enabled": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "playwright.reuseBrowser": true,
+  "terminal.integrated.enableMultiLinePasteWarning": "auto",
+  "workbench.editor.enablePreview": false,
+  "diffEditor.codeLens": true,
+  "http.systemCertificatesNode": true,
+  "files.autoSave": "afterDelay",
+  "chat.detectParticipant.enabled": false,
+  "terminal.integrated.initialHint": false,
+  "javascript.format.placeOpenBraceOnNewLineForControlBlocks": false,
+  "editor.formatOnSave": true,
+  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+  "javascript.format.placeOpenBraceOnNewLineForFunctions": false,
+  "editor.tabSize": 4,
+  "editor.insertSpaces": true,
+  "workbench.editor.empty.hint": "hidden",
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "prettier.printWidth": 200,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "none",
+  "prettier.arrowParens": "avoid",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  }
+}

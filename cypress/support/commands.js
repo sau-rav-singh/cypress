@@ -23,26 +23,22 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-Cypress.Commands.add('submitFormDetails', () =>
-{
-    cy.get("#country").type("India")
-    //cy.pause();
-    cy.get(".suggestions ul li a").click()
-    cy.get(".btn-success").click()
-})
+Cypress.Commands.add('submitFormDetails', () => {
+  cy.get('#country').type('India');
+  //cy.pause();
+  cy.get('.suggestions ul li a').click();
+  cy.get('.btn-success').click();
+});
 
-Cypress.Commands.add('LoginApi', (email = "anshika@gmail.com", password = "Iamking@000") =>
-{
-    cy.session(email, () =>
-    {
-        cy.request({
-            method: "POST",
-            url: "https://rahulshettyacademy.com/api/ecom/auth/login",
-            body: { userEmail: email, userPassword: password }
-        }).then((response) =>
-        {
-            expect(response.status).to.eq(200);
-            window.localStorage.setItem('token', response.body.token);
-        });
+Cypress.Commands.add('LoginApi', (email = 'anshika@gmail.com', password = 'Iamking@000') => {
+  cy.session(email, () => {
+    cy.request({
+      method: 'POST',
+      url: 'https://rahulshettyacademy.com/api/ecom/auth/login',
+      body: { userEmail: email, userPassword: password }
+    }).then(response => {
+      expect(response.status).to.eq(200);
+      window.localStorage.setItem('token', response.body.token);
     });
+  });
 });

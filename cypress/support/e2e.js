@@ -13,13 +13,12 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-import './commands'
+import './commands';
 import 'cypress-mochawesome-reporter/register';
 
 const app = window.top;
 
-if (!app.document.head.querySelector('[data-hide-command-log-request]'))
-{
+if (!app.document.head.querySelector('[data-hide-command-log-request]')) {
   const style = app.document.createElement('style');
   style.innerHTML = `
     .command-name-request,
@@ -31,8 +30,7 @@ if (!app.document.head.querySelector('[data-hide-command-log-request]'))
   app.document.head.appendChild(style);
 }
 
-beforeEach(() =>
-{
+beforeEach(() => {
   cy.intercept('https://www.googleadservices.com/**', { statusCode: 200, body: {} });
   cy.intercept('https://www.googletagmanager.com/**', { statusCode: 200, body: {} });
   cy.intercept('**/pagead/conversion/**', { statusCode: 200, body: {} });

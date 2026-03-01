@@ -1,9 +1,8 @@
 import 'cypress-iframe';
 
 describe('Automation Practice Suite', () => {
-
-  it("E-Commerce Product Selection and Cart Flow", () => {
-    cy.visit("/seleniumPractise/#/");
+  it('E-Commerce Product Selection and Cart Flow', () => {
+    cy.visit('/seleniumPractise/#/');
     cy.get('.search-keyword').type('ca');
     // Wait for products to appear and verify count
     cy.get('.products').find('.product:visible').should('have.length', 4);
@@ -11,26 +10,33 @@ describe('Automation Practice Suite', () => {
     cy.get('.products').as('productLocator');
 
     // Add second product to cart
-    cy.get('@productLocator').find('.product:visible').eq(1).contains('ADD TO CART').click().then(() => {
-      cy.log('Added second product to cart');
-    });
+    cy.get('@productLocator')
+      .find('.product:visible')
+      .eq(1)
+      .contains('ADD TO CART')
+      .click()
+      .then(() => {
+        cy.log('Added second product to cart');
+      });
 
     // Find and add Cashews dynamically
-    cy.get('@productLocator').find('.product:visible').each(($el) => {
-      if ($el.find('h4.product-name').text().includes('Cashews')) {
-        cy.wrap($el).find('button').click();
-      }
-    });
+    cy.get('@productLocator')
+      .find('.product:visible')
+      .each($el => {
+        if ($el.find('h4.product-name').text().includes('Cashews')) {
+          cy.wrap($el).find('button').click();
+        }
+      });
 
     cy.get('.brand').should('have.text', 'GREENKART');
 
     // Go to checkout
     cy.get('.cart-icon > img').click();
-    cy.contains("button", "PROCEED TO CHECKOUT").click();
+    cy.contains('button', 'PROCEED TO CHECKOUT').click();
   });
 
-  it("Form Inputs: Checkboxes, Dropdowns, and Autocomplete", () => {
-    cy.visit("/AutomationPractice/");
+  it('Form Inputs: Checkboxes, Dropdowns, and Autocomplete', () => {
+    cy.visit('/AutomationPractice/');
 
     // Checkboxes
     cy.get('#checkBoxOption1').check().should('be.checked').and('have.value', 'option1');
@@ -42,16 +48,16 @@ describe('Automation Practice Suite', () => {
 
     // Autocomplete
     cy.get('#autocomplete').type('ind');
-    cy.get('.ui-menu-item div').each(($el) => {
+    cy.get('.ui-menu-item div').each($el => {
       if ($el.text() === 'India') {
         cy.wrap($el).click();
       }
     });
-    cy.get("#autocomplete").should('have.value', 'India');
+    cy.get('#autocomplete').should('have.value', 'India');
   });
 
-  it("Element Visibility and Radio Button Interaction", () => {
-    cy.visit("/AutomationPractice/");
+  it('Element Visibility and Radio Button Interaction', () => {
+    cy.visit('/AutomationPractice/');
 
     // Visibility
     cy.get('#displayed-text').should('be.visible');
@@ -62,43 +68,46 @@ describe('Automation Practice Suite', () => {
     cy.get('[value="radio2"]').check().should('be.checked');
   });
 
-  it("Handling Alerts and New Tabs (Remove Attribute Strategy)", () => {
-    cy.visit("/AutomationPractice/");
+  it('Handling Alerts and New Tabs (Remove Attribute Strategy)', () => {
+    cy.visit('/AutomationPractice/');
 
     // Alert Handling
     cy.get('#alertbtn').click();
-    cy.on('window:alert', (str) => {
+    cy.on('window:alert', str => {
       expect(str).to.equal('Hello , share this practice page and share your knowledge');
     });
 
     // Child Tab Handling (Remove target attribute)
-    cy.get("#opentab").invoke('removeAttr', 'target').click();
+    cy.get('#opentab').invoke('removeAttr', 'target').click();
 
     // Cross-Origin Validation
-    cy.origin("https://www.qaclickacademy.com", () => {
+    cy.origin('https://www.qaclickacademy.com', () => {
       cy.get("#navbarSupportedContent a[href*='about']").click();
-      cy.get(".mt-50 h2").should('contain', 'QAClick Academy');
+      cy.get('.mt-50 h2').should('contain', 'QAClick Academy');
     });
   });
 
-  it("Web Table Dynamic Value Validation", () => {
-    cy.visit("/AutomationPractice/");
+  it('Web Table Dynamic Value Validation', () => {
+    cy.visit('/AutomationPractice/');
 
     cy.get('tr td:nth-child(2)').each(($el, index) => {
       const text = $el.text();
-      if (text.includes("Python")) {
-        cy.get("tr td:nth-child(2)").eq(index).next().then((price) => {
-          const priceText = price.text();
-          expect(priceText).to.equal('25');
-        });
+      if (text.includes('Python')) {
+        cy.get('tr td:nth-child(2)')
+          .eq(index)
+          .next()
+          .then(price => {
+            const priceText = price.text();
+            expect(priceText).to.equal('25');
+          });
       }
     });
   });
 
-  it("Handling New Tabs (Direct URL Visit Strategy)", () => {
-    cy.visit("/AutomationPractice/");
+  it('Handling New Tabs (Direct URL Visit Strategy)', () => {
+    cy.visit('/AutomationPractice/');
 
-    cy.get('#opentab').then((el) => {
+    cy.get('#opentab').then(el => {
       const url = el.prop('href');
       cy.visit(url);
       cy.origin(url, () => {
@@ -108,47 +117,48 @@ describe('Automation Practice Suite', () => {
   });
 
   it('IFrame Interaction', () => {
-    cy.visit("/AutomationPractice/");
+    cy.visit('/AutomationPractice/');
 
-    cy.get("#courses-iframe").then($iframe => {
+    cy.get('#courses-iframe').then($iframe => {
       const url = $iframe.prop('src');
       cy.visit(url);
       cy.origin(url, () => {
         cy.get("a[href*='mentorship']").eq(0).click();
         cy.get("h1[class*='pricing-title']").should('have.length', 2);
-      })
+      });
     });
   });
 
   it('Date Picker Calendar Navigation', () => {
-    const monthNumber = "6";
-    const date = "15";
-    const year = "2027";
+    const monthNumber = '6';
+    const date = '15';
+    const year = '2027';
     const expectedList = [monthNumber, date, year];
 
-    cy.visit("/seleniumPractise/#/offers");
+    cy.visit('/seleniumPractise/#/offers');
 
     // Wait for calendar input to be visible instead of hard wait
-    cy.get(".react-date-picker__inputGroup").should('be.visible').click();
+    cy.get('.react-date-picker__inputGroup').should('be.visible').click();
 
-    cy.get(".react-calendar__navigation__label").click();
-    cy.get(".react-calendar__navigation__label").click();
-    cy.contains("button", year).click();
-    cy.get(".react-calendar__year-view__months__month").eq(Number(monthNumber) - 1).click();
-    cy.contains("abbr", date).click();
+    cy.get('.react-calendar__navigation__label').click();
+    cy.get('.react-calendar__navigation__label').click();
+    cy.contains('button', year).click();
+    cy.get('.react-calendar__year-view__months__month')
+      .eq(Number(monthNumber) - 1)
+      .click();
+    cy.contains('abbr', date).click();
 
     // Assertion
-    cy.get(".react-date-picker__inputGroup__input").each(($el, index) => {
+    cy.get('.react-date-picker__inputGroup__input').each(($el, index) => {
       cy.wrap($el).invoke('val').should('eq', expectedList[index]);
-    })
+    });
   });
 
   it('Fixture Data Validation', () => {
-    cy.fixture('example').then((data) => {
+    cy.fixture('example').then(data => {
       expect(data.username).to.equal('rahulshettyacademy');
       expect(data.passsword).to.equal('Learning@830$3mK2');
       expect(data.productName).to.equal('Nokia Edge');
     });
   });
-
 });
