@@ -23,6 +23,22 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('openHomePage', () => {
+  cy.visit('https://playground.bondaracademy.com/');
+})
+
+Cypress.Commands.add('loginToApplication', () => {
+  cy.visit('https://conduit.bondaracademy.com/')
+
+  cy.contains('Sign in').click()
+
+  cy.get('input[placeholder="Email"]').type('saurav@singh.com')
+  cy.get('input[placeholder="Password"]').type('mech2704')
+
+  cy.contains('button', 'Sign in').click()
+})
+
 Cypress.Commands.add('submitFormDetails', () => {
   cy.get('#country').type('India');
   //cy.pause();

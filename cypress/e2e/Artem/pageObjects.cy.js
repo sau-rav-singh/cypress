@@ -1,9 +1,10 @@
 /// <reference types="cypress" />
 import { navigateTo } from './page-objects/navigationPage';
 import { onformLayoutsPage } from './page-objects/formsLayoutsPage';
+import { datePickerPage } from './page-objects/datapickerPage';
 
 beforeEach(() => {
-  cy.visit('/');
+   cy.openHomePage()
 });
 
 it('should navigate to the form layouts page', () => {
@@ -12,4 +13,7 @@ it('should navigate to the form layouts page', () => {
   onformLayoutsPage.submitUsingTheGridForm('admin@test.com', 'admin123', 1);
   onformLayoutsPage.submitBasicForm('basic@test.com', 'welcome', true);
   onformLayoutsPage.submitBasicForm('basic2@test.com', 'welcome', false);
+  navigateTo.navigateToDatePickerPage();
+  datePickerPage.selectCommonDatePickerDateFromToday(5);
+  datePickerPage.selectDateRangeFromToday(10, 12);
 });

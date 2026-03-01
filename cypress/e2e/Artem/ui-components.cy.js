@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 it('Tests UI components', () => {
-  cy.visit('/');
+ cy.openHomePage();
   cy.contains('Forms').click();
   cy.contains('Form Layouts').click();
   cy.get('#inputEmail1').type('test@example.com', { delay: 10 });
