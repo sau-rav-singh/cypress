@@ -13,28 +13,31 @@
   "terminal.integrated.enableMultiLinePasteWarning": "auto",
   "workbench.editor.enablePreview": false,
   "diffEditor.codeLens": true,
-  "http.systemCertificatesNode": true,
   "files.autoSave": "afterDelay",
   "chat.detectParticipant.enabled": false,
   "terminal.integrated.initialHint": false,
-  "javascript.format.placeOpenBraceOnNewLineForControlBlocks": false,
   "editor.formatOnSave": true,
-  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
-  "javascript.format.placeOpenBraceOnNewLineForFunctions": false,
   "editor.tabSize": 4,
   "editor.insertSpaces": true,
   "workbench.editor.empty.hint": "hidden",
   "github.copilot.nextEditSuggestions.enabled": true,
-  "prettier.printWidth": 200,
-  "prettier.singleQuote": true,
-  "prettier.trailingComma": "none",
-  "prettier.arrowParens": "avoid",
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
+
+  /* --- JAVA-STYLE FORMATTING SETTINGS --- */
+  
+  // Use VS Code built-in formatter instead of Prettier to allow manual chaining
+  "editor.defaultFormatter": "vscode.typescript-language-features",
+  
+  // Classic Java-style Method/Brace spacing
+  "javascript.format.semicolons": "insert",
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": false,
+  "javascript.format.placeOpenBraceOnNewLineForFunctions": false,
+  "javascript.format.placeOpenBraceOnNewLineForControlBlocks": false,
+  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
   },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
+  // Keep your existing formatter as the primary one
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   }
 }

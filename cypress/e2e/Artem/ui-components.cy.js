@@ -62,8 +62,7 @@ it.only('selects a future date from the calendar', () => {
     const futureMonthShort = date.toLocaleString('en-US', { month: 'short' });
 
     function navigateToCorrectMonth() {
-      cy.get('.calendar-navigation')
-        .invoke('text')
+      cy.get('.calendar-navigation').invoke('text')
         .then(calendarText => {
           const correctMonthDisplayed = calendarText.includes(futureMonthLong) && calendarText.includes(futureYear);
           if (!correctMonthDisplayed) {

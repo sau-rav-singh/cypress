@@ -17,7 +17,7 @@
     "cypress": "^15.10.0",
     "cypress-iframe": "^1.0.1",
     "cypress-mochawesome-reporter": "^4.0.2",
-    "eslint": "^10.0.0",
+    "eslint": "^10.0.2",
     "globals": "^17.3.0",
     "mocha": "^11.3.0",
     "neat-csv": "5.1.0"
