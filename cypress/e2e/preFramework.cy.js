@@ -1,22 +1,18 @@
 const config = Cypress.expose('PLUGIN_CONFIG');
 
-describe("Pre-Framework Raw Test Suite", () =>
-{
-    it("Verify Login Functionality", () =>
-    {
+describe("Pre-Framework Raw Test Suite", () => {
+    it("Verify Login Functionality", () => {
         cy.visit("/loginpagePractise/");
-        cy.env(['username', 'password']).then(({ username, password }) =>
-        {
+        cy.env(['username', 'password']).then(({ username, password }) => {
             cy.get("#username").type(username);
             cy.get("#password").type(password);
         });
         cy.contains("Sign In").click();
         cy.contains("Shop Name").should("be.visible");
-        cy.log("Exposed Value: "+config);
+        cy.log("Exposed Value: " + config);
     });
 
-    it("E-Commerce Product Selection, Cart Validation, and Checkout", () =>
-    {
+    it("E-Commerce Product Selection, Cart Validation, and Checkout", () => {
         const productName = "Nokia Edge";
         // Increase timeout for this specific test
         Cypress.config('defaultCommandTimeout', 10000);
@@ -30,8 +26,7 @@ describe("Pre-Framework Raw Test Suite", () =>
         // Add specific product by name
         cy.get("app-card")
             .filter(`:contains("${productName}")`)
-            .then(($el) =>
-            {
+            .then(($el) => {
                 cy.wrap($el).contains("button", "Add").click();
             });
 
@@ -48,13 +43,11 @@ describe("Pre-Framework Raw Test Suite", () =>
         // Validate Cart Total
         let sum = 0;
         cy.get("tr td:nth-child(4) strong")
-            .each(($el) =>
-            {
+            .each(($el) => {
                 const amount = Number($el.text().split(" ")[1].trim());
                 sum += amount;
             })
-            .then(() =>
-            {
+            .then(() => {
                 cy.log("The total sum is: " + sum);
                 expect(sum).to.be.lessThan(200000);
             });

@@ -1,8 +1,6 @@
-describe('Upload-download test', () =>
-{
+describe('Upload-download test', () => {
 
-    it("verify excel upload download", () =>
-    {
+    it("verify excel upload download", () => {
         const replaceNum = 450;
         const searchTextFruit = "Mango";
         const FilePath = Cypress.config("fileServerFolder") + "/cypress/downloads/download.xlsx"

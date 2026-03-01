@@ -18,7 +18,9 @@ export default defineConfig({
     PLUGIN_CONFIG: 'value1',
   },
   e2e: {
-    baseUrl: "https://rahulshettyacademy.com",
+    //baseUrl: "https://rahulshettyacademy.com",
+    baseUrl:"https://playground.bondaracademy.com/",
+    chromeWebSecurity: false,
     defaultCommandTimeout: 5000,
     requestTimeout: 15000,
     pageLoadTimeout: 60000,

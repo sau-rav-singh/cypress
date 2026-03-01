@@ -1,8 +1,6 @@
-describe('API Mocking and Interaction Test Suite', () =>
-{
+describe('API Mocking and Interaction Test Suite', () => {
 
-    it('Should display single book when API returns one book', () =>
-    {
+    it('Should display single book when API returns one book', () => {
         cy.visit("https://rahulshettyacademy.com/angularAppdemo/");
 
         cy.intercept(
@@ -24,24 +22,20 @@ describe('API Mocking and Interaction Test Suite', () =>
 
         cy.get("button[class='btn btn-primary']").click();
 
-        cy.wait('@bookRetrievals').then(({ response }) =>
-        {
+        cy.wait('@bookRetrievals').then(({ response }) => {
             cy.get('tr').should('have.length', response.body.length + 1);
         });
 
         cy.get('p').should('have.text', 'Oops only 1 Book available');
     });
 
-    it('Should intercept and modify request URL', () =>
-    {
+    it('Should intercept and modify request URL', () => {
         cy.visit("https://rahulshettyacademy.com/angularAppdemo/");
 
         cy.intercept('GET', 'https://rahulshettyacademy.com/Library/GetBook.php?AuthorName=shetty',
-            (req) =>
-            {
+            (req) => {
                 req.url = "https://rahulshettyacademy.com/Library/GetBook.php?AuthorName=malhotra"
-                req.continue((res) =>
-                {
+                req.continue((res) => {
                     // Optional: Add assertions on the response if needed
                 })
             }
@@ -51,8 +45,7 @@ describe('API Mocking and Interaction Test Suite', () =>
         cy.wait('@modifiedRequest')
     })
 
-    it("Should retrieve book details via GET API", () =>
-    {
+    it("Should retrieve book details via GET API", () => {
         const randomIsbn = Math.random().toString(36).substring(2, 5);
         const randomAisle = Math.floor(1000 + Math.random() * 9000).toString();
         const bookName = "Learn Appium Automation with Java";
@@ -67,8 +60,7 @@ describe('API Mocking and Interaction Test Suite', () =>
                 "aisle": randomAisle,
                 "author": author
             }
-        }).then((response) =>
-        {
+        }).then((response) => {
             expect(response.status).to.eq(200);
             expect(response.body).to.have.property('Msg', 'successfully added');
             const bookID = response.body.ID;
@@ -76,8 +68,7 @@ describe('API Mocking and Interaction Test Suite', () =>
             cy.request({
                 method: 'GET',
                 url: `https://rahulshettyacademy.com/Library/GetBook.php?ID=${bookID}`,
-            }).then((getResponse) =>
-            {
+            }).then((getResponse) => {
                 expect(getResponse.status).to.eq(200);
                 expect(getResponse.body).to.be.an('array').and.have.length(1);
 
@@ -90,8 +81,7 @@ describe('API Mocking and Interaction Test Suite', () =>
         });
     });
 
-    it('Should create a new book via POST API', () =>
-    {
+    it('Should create a new book via POST API', () => {
         const randomIsbn = Math.random().toString(36).substring(2, 5);
         const randomAisle = Math.floor(1000 + Math.random() * 9000).toString();
         const expectedID = randomIsbn + randomAisle;
@@ -105,8 +95,7 @@ describe('API Mocking and Interaction Test Suite', () =>
                 "aisle": randomAisle,
                 "author": "John foer"
             }
-        }).then((response) =>
-        {
+        }).then((response) => {
             expect(response.status).to.eq(200);
             expect(response.body).to.have.property('Msg', 'successfully added');
             expect(response.body.ID).to.eq(expectedID);

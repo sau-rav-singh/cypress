@@ -2,8 +2,7 @@ const exceljs = require('exceljs');
 const path = require('path');
 const fs = require('fs').promises;
 
-async function updatePrice(fruitName, newPrice, filePath)
-{
+async function updatePrice(fruitName, newPrice, filePath) {
     const workbook = new exceljs.Workbook();
     await workbook.xlsx.readFile(filePath);
     const worksheet = workbook.getWorksheet('Sheet1');
@@ -11,37 +10,30 @@ async function updatePrice(fruitName, newPrice, filePath)
     // Find the row where the fruit is located
     const output = await findTextInWorksheet(worksheet, fruitName);
 
-    if (output.row !== -1)
-    {
+    if (output.row !== -1) {
         // Assuming 'Price' is in the 3rd column (based on: Fruit, Color, Price, Season)
         const priceColumnIndex = 3;
         const cell = worksheet.getCell(output.row, priceColumnIndex);
         cell.value = newPrice;
         await workbook.xlsx.writeFile(filePath);
         console.log(`Updated price of ${fruitName} to ${newPrice}.`);
-    } else
-    {
+    } else {
         console.log(`Fruit '${fruitName}' not found.`);
     }
 }
 
-async function readExcel(filePath, searchText)
-{
+async function readExcel(filePath, searchText) {
     const workbook = new exceljs.Workbook();
     await workbook.xlsx.readFile(filePath);
     const worksheet = workbook.getWorksheet('Sheet1');
     return await findTextInWorksheet(worksheet, searchText);
 }
 
-async function findTextInWorksheet(worksheet, searchText)
-{
+async function findTextInWorksheet(worksheet, searchText) {
     let output = { row: -1, column: -1 };
-    worksheet.eachRow((row, rowNumber) =>
-    {
-        row.eachCell((cell, colNumber) =>
-        {
-            if (cell.value === searchText)
-            {
+    worksheet.eachRow((row, rowNumber) => {
+        row.eachCell((cell, colNumber) => {
+            if (cell.value === searchText) {
                 output.row = rowNumber;
                 output.column = colNumber;
             }
@@ -50,33 +42,26 @@ async function findTextInWorksheet(worksheet, searchText)
     return output;
 }
 
-async function convertAllSheetsToJson(filePath)
-{
+async function convertAllSheetsToJson(filePath) {
     const workbook = new exceljs.Workbook();
     await workbook.xlsx.readFile(filePath);
 
     // Iterate through all sub-sheets
-    for (const worksheet of workbook.worksheets)
-    {
+    for (const worksheet of workbook.worksheets) {
         const sheetData = {};
         const headers = [];
 
-        worksheet.eachRow((row, rowNumber) =>
-        {
-            if (rowNumber === 1)
-            {
+        worksheet.eachRow((row, rowNumber) => {
+            if (rowNumber === 1) {
                 // Store headers (Color, Price, Season, etc.)
                 row.eachCell((cell) => headers.push(cell.value.toString().toLowerCase()));
-            } else
-            {
+            } else {
                 const rowObject = {};
                 const fruitName = row.getCell(1).value.toString().toLowerCase();
 
                 // Map subsequent cells to headers
-                row.eachCell((cell, colNumber) =>
-                {
-                    if (colNumber > 1)
-                    {
+                row.eachCell((cell, colNumber) => {
+                    if (colNumber > 1) {
                         const headerName = headers[colNumber - 1];
                         rowObject[headerName] = cell.value;
                     }
@@ -95,8 +80,7 @@ async function convertAllSheetsToJson(filePath)
     }
 }
 
-async function main()
-{
+async function main() {
     const filePath = path.join(__dirname, '..', 'fixtures', 'excelData.xlsx');
     await updatePrice("Mango", 400, filePath);
     const output = await readExcel(filePath, "Mango");

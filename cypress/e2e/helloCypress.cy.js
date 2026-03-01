@@ -1,10 +1,8 @@
 import 'cypress-iframe';
 
-describe('Automation Practice Suite', () =>
-{
+describe('Automation Practice Suite', () => {
 
-  it("E-Commerce Product Selection and Cart Flow", () =>
-  {
+  it("E-Commerce Product Selection and Cart Flow", () => {
     cy.visit("/seleniumPractise/#/");
     cy.get('.search-keyword').type('ca');
     // Wait for products to appear and verify count
@@ -13,16 +11,13 @@ describe('Automation Practice Suite', () =>
     cy.get('.products').as('productLocator');
 
     // Add second product to cart
-    cy.get('@productLocator').find('.product:visible').eq(1).contains('ADD TO CART').click().then(() =>
-    {
+    cy.get('@productLocator').find('.product:visible').eq(1).contains('ADD TO CART').click().then(() => {
       cy.log('Added second product to cart');
     });
 
     // Find and add Cashews dynamically
-    cy.get('@productLocator').find('.product:visible').each(($el) =>
-    {
-      if ($el.find('h4.product-name').text().includes('Cashews'))
-      {
+    cy.get('@productLocator').find('.product:visible').each(($el) => {
+      if ($el.find('h4.product-name').text().includes('Cashews')) {
         cy.wrap($el).find('button').click();
       }
     });
@@ -34,8 +29,7 @@ describe('Automation Practice Suite', () =>
     cy.contains("button", "PROCEED TO CHECKOUT").click();
   });
 
-  it("Form Inputs: Checkboxes, Dropdowns, and Autocomplete", () =>
-  {
+  it("Form Inputs: Checkboxes, Dropdowns, and Autocomplete", () => {
     cy.visit("/AutomationPractice/");
 
     // Checkboxes
@@ -48,18 +42,15 @@ describe('Automation Practice Suite', () =>
 
     // Autocomplete
     cy.get('#autocomplete').type('ind');
-    cy.get('.ui-menu-item div').each(($el) =>
-    {
-      if ($el.text() === 'India')
-      {
+    cy.get('.ui-menu-item div').each(($el) => {
+      if ($el.text() === 'India') {
         cy.wrap($el).click();
       }
     });
     cy.get("#autocomplete").should('have.value', 'India');
   });
 
-  it("Element Visibility and Radio Button Interaction", () =>
-  {
+  it("Element Visibility and Radio Button Interaction", () => {
     cy.visit("/AutomationPractice/");
 
     // Visibility
@@ -71,14 +62,12 @@ describe('Automation Practice Suite', () =>
     cy.get('[value="radio2"]').check().should('be.checked');
   });
 
-  it("Handling Alerts and New Tabs (Remove Attribute Strategy)", () =>
-  {
+  it("Handling Alerts and New Tabs (Remove Attribute Strategy)", () => {
     cy.visit("/AutomationPractice/");
 
     // Alert Handling
     cy.get('#alertbtn').click();
-    cy.on('window:alert', (str) =>
-    {
+    cy.on('window:alert', (str) => {
       expect(str).to.equal('Hello , share this practice page and share your knowledge');
     });
 
@@ -86,24 +75,19 @@ describe('Automation Practice Suite', () =>
     cy.get("#opentab").invoke('removeAttr', 'target').click();
 
     // Cross-Origin Validation
-    cy.origin("https://www.qaclickacademy.com", () =>
-    {
+    cy.origin("https://www.qaclickacademy.com", () => {
       cy.get("#navbarSupportedContent a[href*='about']").click();
       cy.get(".mt-50 h2").should('contain', 'QAClick Academy');
     });
   });
 
-  it("Web Table Dynamic Value Validation", () =>
-  {
+  it("Web Table Dynamic Value Validation", () => {
     cy.visit("/AutomationPractice/");
 
-    cy.get('tr td:nth-child(2)').each(($el, index) =>
-    {
+    cy.get('tr td:nth-child(2)').each(($el, index) => {
       const text = $el.text();
-      if (text.includes("Python"))
-      {
-        cy.get("tr td:nth-child(2)").eq(index).next().then((price) =>
-        {
+      if (text.includes("Python")) {
+        cy.get("tr td:nth-child(2)").eq(index).next().then((price) => {
           const priceText = price.text();
           expect(priceText).to.equal('25');
         });
@@ -111,39 +95,32 @@ describe('Automation Practice Suite', () =>
     });
   });
 
-  it("Handling New Tabs (Direct URL Visit Strategy)", () =>
-  {
+  it("Handling New Tabs (Direct URL Visit Strategy)", () => {
     cy.visit("/AutomationPractice/");
 
-    cy.get('#opentab').then((el) =>
-    {
+    cy.get('#opentab').then((el) => {
       const url = el.prop('href');
       cy.visit(url);
-      cy.origin(url, () =>
-      {
+      cy.origin(url, () => {
         cy.get("div.sub-menu-bar a[href*='about']").click();
       });
     });
   });
 
-  it('IFrame Interaction', () =>
-  {
+  it('IFrame Interaction', () => {
     cy.visit("/AutomationPractice/");
 
-    cy.get("#courses-iframe").then($iframe =>
-    {
+    cy.get("#courses-iframe").then($iframe => {
       const url = $iframe.prop('src');
       cy.visit(url);
-      cy.origin(url, () =>
-      {
+      cy.origin(url, () => {
         cy.get("a[href*='mentorship']").eq(0).click();
         cy.get("h1[class*='pricing-title']").should('have.length', 2);
       })
     });
   });
 
-  it('Date Picker Calendar Navigation', () =>
-  {
+  it('Date Picker Calendar Navigation', () => {
     const monthNumber = "6";
     const date = "15";
     const year = "2027";
@@ -161,16 +138,13 @@ describe('Automation Practice Suite', () =>
     cy.contains("abbr", date).click();
 
     // Assertion
-    cy.get(".react-date-picker__inputGroup__input").each(($el, index) =>
-    {
+    cy.get(".react-date-picker__inputGroup__input").each(($el, index) => {
       cy.wrap($el).invoke('val').should('eq', expectedList[index]);
     })
   });
 
-  it('Fixture Data Validation', () =>
-  {
-    cy.fixture('example').then((data) =>
-    {
+  it('Fixture Data Validation', () => {
+    cy.fixture('example').then((data) => {
       expect(data.username).to.equal('rahulshettyacademy');
       expect(data.passsword).to.equal('Learning@830$3mK2');
       expect(data.productName).to.equal('Nokia Edge');
